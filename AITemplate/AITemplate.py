@@ -415,7 +415,7 @@ class ControlNet(ControlBase):
                 context = cond['c_crossattn'].to(self.device)
                 y = cond.get('c_adm', None)
                 control = self.control_model(x=x_noisy.to(self.device), hint=self.cond_hint, timesteps=t, context=context.to(self.device), y=y)
-                comfy.model_management.unload_model_clones(self.control_model_wrapped)
+                # comfy.model_management.unload_model_clones(self.control_model_wrapped)
         else:
             # AITemplate inference, returns the same as regular
             control = self.aitemplate_controlnet(x_noisy, t, cond, self.cond_hint)
