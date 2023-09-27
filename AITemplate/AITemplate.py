@@ -335,6 +335,8 @@ comfy.sample.sample = sample
 
 
 from comfy.controlnet import ControlBase
+import comfy.model_patcher
+
 class ControlNet(ControlBase):
     def __init__(self, control_model, global_average_pooling=False, device=None):
         super().__init__(device)
@@ -345,7 +347,7 @@ class ControlNet(ControlBase):
         else:
             self.aitemplate = None
         self.control_model = control_model
-        self.control_model_wrapped = comfy.sd.ModelPatcher(self.control_model, load_device=comfy.model_management.get_torch_device(), offload_device=comfy.model_management.unet_offload_device())
+        self.control_model_wrapped = comfy.model_patcher.ModelPatcher(self.control_model, load_device=comfy.model_management.get_torch_device(), offload_device=comfy.model_management.unet_offload_device())
         self.cond_hint_original = None
         self.cond_hint = None
         self.strength = 1.0
